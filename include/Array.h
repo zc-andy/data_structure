@@ -3,7 +3,10 @@
 
 #include <iostream>
 #include <stdint.h>
+#include <cstring>
 #include "Ds.h"
+
+#define STR_MAX_SIZE 1000
 
 class Array
 {
@@ -21,11 +24,11 @@ class Array
 		/**
 		 * @brief 循环左移p单位
 		 *
-		 * @prama arr_src 原数组, offset 左移单位
+		 * @prama arr_src 原数组, len 字符串长度, offset 左移单位
 		 *
 		 * @return DS_OK 成功; DS_FAIL 失败
 		 */
-		int32_t TurnLeftArray(char arr_src[], int32_t offset);
+		int32_t TurnLeftArray(char arr_src[], int32_t len, int32_t offset);
 
 	private:
 		/**
