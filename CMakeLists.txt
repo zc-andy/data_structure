@@ -18,7 +18,7 @@ if (CMAKE_BUILD_RPATH AND (CMAKE_BUILD_TYPE MATCHES GTEST))
 endif()
 
 # 设置源文件路径
-aux_source_directory(src DS_TEST_FILES)
+aux_source_directory(src DS_SRC_FILES)
 
 # 设置测试代码路径
 if (CMAKE_BUILD_TYPE MATCHES GTEST)
@@ -34,28 +34,8 @@ link_directories(${CMAKE_BUILD_RPATH}/lib)
 
 if (CMAKE_BUILD_TYPE MATCHES GTEST)
 	#添加编译选项
-	add_executable(ds_gtest ${DS_TREE_SRC_FILES} 
+	add_executable(ds_gtest ${DS_SRC_FILES} 
 					${DS_TEST_FILES})
 	target_link_libraries(ds_gtest PRIVATE gtest)
 	target_link_libraries(ds_gtest PRIVATE gcov)
-
-	#执行程序
-	add_custom_target(test
-	COMMAND ./ds_gtest
-	WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
-	COMMENT "run test suit.")
-
-	add_custom_target(gen_coverage
-	COMMAND lcov -d CMakeFiles/ds_gtest.dir/gtest -t ml_gtest -o 'ds_gtest.cov.info' -b . -c
-	WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
-	COMMENT "genarate coverage info")
-
-	add_custom_target(gen_coverage_html
-	COMMAND genhtml -o cov_result ds_gtest.cov.info
-	WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/build
-	COMMENT "genarate coverage info to ./cov_result")
-	
-	add_dependencies(gen_coverage test)
-	add_dependencies(gen_coverage ds_gtest)
-	add_dependencies(gen_coverage_html gen_coverage)
 endif()
